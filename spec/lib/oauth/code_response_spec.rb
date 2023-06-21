@@ -12,6 +12,7 @@ RSpec.describe Doorkeeper::OAuth::CodeResponse do
       redirect_uri: "http://tst.com/cb",
       state: "state",
       scopes: Doorkeeper::OAuth::Scopes.from_string("public"),
+      resource_indicators: [],
       custom_access_token_attributes: {},
     )
   end

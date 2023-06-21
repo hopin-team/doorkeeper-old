@@ -9,6 +9,7 @@ module Doorkeeper
       # @see https://datatracker.ietf.org/doc/html/rfc6749#section-5.2
       validate :redirect_uri, error: :invalid_grant
       validate :code_verifier, error: :invalid_grant
+      validate :resource_indicators, error: :invalid_target
 
       attr_reader :grant, :client, :redirect_uri, :access_token, :code_verifier,
                   :invalid_request_reason, :missing_param
@@ -20,9 +21,18 @@ module Doorkeeper
         @grant_type = Doorkeeper::OAuth::AUTHORIZATION_CODE
         @redirect_uri = parameters[:redirect_uri]
         @code_verifier = parameters[:code_verifier]
+        @resource = parameters[:resource]
       end
 
       private
+
+      def validate_resource_indicators
+        Helpers::ResourceIndicatorsChecker.valid?(grant, resource_indicators)
+      end
+
+      def resource_indicators
+        @resource_indicators ||= ResourceIndicators.from_array(@resource)
+      end
 
       def before_successful_response
         grant.transaction do
@@ -35,6 +45,7 @@ module Doorkeeper
             grant.application,
             resource_owner,
             grant.scopes,
+            @resource_indicators,
             custom_token_attributes_with_data,
             server,
           )

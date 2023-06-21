@@ -124,6 +124,7 @@ RSpec.describe Doorkeeper::OAuth::BaseRequest do
         client,
         resource_owner,
         "public",
+        [],
         {},
         server,
       )
@@ -145,6 +146,7 @@ RSpec.describe Doorkeeper::OAuth::BaseRequest do
         client,
         resource_owner,
         "public",
+        [],
         {},
         server,
       )
@@ -167,6 +169,7 @@ RSpec.describe Doorkeeper::OAuth::BaseRequest do
         client,
         resource_owner,
         "public",
+        [],
         {},
         server,
       )
@@ -176,6 +179,7 @@ RSpec.describe Doorkeeper::OAuth::BaseRequest do
         client,
         resource_owner,
         "private",
+        [],
         {},
         server,
       )

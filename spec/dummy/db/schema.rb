@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20230205064514) do
     t.datetime "created_at", null: false
     t.datetime "revoked_at"
     t.string "scopes"
+    t.string "resource_indicators"
     t.string "tenant_name"
     unless ENV["WITHOUT_PKCE"]
       t.string   "code_challenge"
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(version: 20230205064514) do
     t.datetime "created_at", null: false
     t.string "scopes"
     t.string "previous_refresh_token", default: "", null: false
+    t.string "resource_indicators"
     t.string "tenant_name"
     t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
     t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"

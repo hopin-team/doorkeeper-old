@@ -56,6 +56,7 @@ module Doorkeeper
         pre_auth.client,
         current_resource_owner,
         pre_auth.scopes,
+        pre_auth.resource_indicators,
       )
     end
 
@@ -92,7 +93,10 @@ module Doorkeeper
     end
 
     def pre_auth_params
-      params.slice(*pre_auth_param_fields).permit(*pre_auth_param_fields)
+      Doorkeeper::Helpers::ResourceIndicators.resource_identifier_from_request(
+        request,
+        params.slice(*pre_auth_param_fields).permit(*pre_auth_param_fields),
+      )
     end
 
     def pre_auth_param_fields
