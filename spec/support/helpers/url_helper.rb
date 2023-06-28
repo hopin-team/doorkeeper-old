@@ -10,6 +10,7 @@ module UrlHelper
       grant_type: options[:grant_type] || "authorization_code",
       code_verifier: options[:code_verifier],
       code_challenge_method: options[:code_challenge_method],
+      resource: options[:resource],
     }.reject { |_, v| v.blank? }
     "/oauth/token?#{build_query(parameters)}"
   end
@@ -37,6 +38,7 @@ module UrlHelper
       state: options[:state],
       code_challenge: options[:code_challenge],
       code_challenge_method: options[:code_challenge_method],
+      resource: options[:resource],
     }.reject { |_, v| v.blank? }
     "/oauth/authorize?#{build_query(parameters)}"
   end
@@ -47,6 +49,7 @@ module UrlHelper
       client_id: options[:client_id] || options[:client].try(:uid),
       client_secret: options[:client_secret] || options[:client].try(:secret),
       grant_type: options[:grant_type] || "refresh_token",
+      resource: options[:resource],
     }.reject { |_, v| v.blank? }
     "/oauth/token?#{build_query(parameters)}"
   end
